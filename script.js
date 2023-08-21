@@ -2,10 +2,13 @@ const settingsModal = document.getElementById("settingsModal");
 const startButton = document.getElementById("startButton");
 const rowsInput = document.getElementById("rows");
 const colsInput = document.getElementById("cols");
+const scoreArea = document.querySelector(".score-area");
+const score = document.getElementById("score");
 
 let numRows;
 let numCols;
 let cellSize;
+let numScore = 0;
 
 // Displaying the settings modal
 window.onload = function () {
@@ -20,6 +23,7 @@ startButton.addEventListener("click", () => {
   settingsModal.style.display = "none";
   canvas.width = numCols * cellSize;
   canvas.height = numRows * cellSize;
+  scoreArea.style.display = "block";
 
   initializeGame(); // Calling the game initialization function here
 });
@@ -84,7 +88,7 @@ function initializeGame() {
       )
     ) {
       // Snake collided with itself, end the game and display a message
-      alert("You lost! Press OK to restart.");
+      alert(`You lost! Your score: ${numScore}. Press OK to restart.`);
       // Reset values and restart the game
       snake = [{ x: 10, y: 10 }];
       direction = "right";
@@ -103,6 +107,8 @@ function initializeGame() {
     ) {
       // Snake ate the food, increase its length
       snake.unshift(newHead);
+      numScore += 100;
+      score.innerHTML = numScore;
       if (speed > 100) {
         speed *= 0.98;
       }
