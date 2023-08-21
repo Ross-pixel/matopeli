@@ -88,12 +88,14 @@ function initializeGame() {
       )
     ) {
       // Snake collided with itself, end the game and display a message
-      alert("You lost! Press OK to restart.");
+     alert(`You lose! Your score: ${numScore}. Press OK to restart.`);
       // Reset values and restart the game
       snake = [{ x: 10, y: 10 }];
       direction = "right";
       speed = 300;
       foodPosition = null;
+      numScore = 0;
+      score.innerHTML = numScore;
       generateFood();
       updateGame();
       return; // Exit the function to stop updating after losing
